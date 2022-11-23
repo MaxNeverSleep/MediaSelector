@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.MediaSelectorActivity" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/media_selector_color_primary</item>
+        <item name="colorPrimaryVariant">@color/media_selector_color_primary_variant</item>
+        <item name="colorOnPrimary">@color/media_selector_color_on_primary</item>
+
+        <!-- Status bar color. -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MediaSelectorActivity">
+
+    <RelativeLayout
+        android:id="@+id/media_selector_tool_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/media_selector_tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="MediaSelector" />
+
+        <Button
+            android:id="@+id/media_selector_select_count_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            tools:text="Confirm(3/9)" />
+
+    </RelativeLayout>
+
+    <com.max.mediaselector.view.MediaSelectorRecyclerView
+        android:id="@+id/media_selector_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/media_selector_tool_bar_layout"
+        app:layout_constraintTop_toBottomOf="@id/media_selector_tool_bar_layout" />
+
+    <Button
+        android:id="@+id/media_selector_confirm_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="get"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</RelativeLayout>

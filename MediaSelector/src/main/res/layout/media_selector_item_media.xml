@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.max.mediaselector.view.MediaSelectorSquareImageView
+        android:id="@+id/media_selector_iv_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/media_selector_ic_photo_holder"
+        android:scaleType="centerCrop" />
+
+    <View
+        android:id="@+id/media_selector_v_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignStart="@id/media_selector_iv_cover"
+        android:layout_alignTop="@id/media_selector_iv_cover"
+        android:layout_alignEnd="@id/media_selector_iv_cover"
+        android:layout_alignBottom="@id/media_selector_iv_cover"
+        android:background="@color/media_selector_mask_color"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/media_selector_check_box"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignEnd="@id/media_selector_iv_cover"
+        android:layout_alignBottom="@id/media_selector_iv_cover"
+        android:padding="3dp"
+        android:src="@drawable/media_selector_check_box_selector" />
+
+    <RelativeLayout
+        android:id="@+id/media_selector_rl_video_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/media_selector_check_box"
+        android:layout_alignTop="@id/media_selector_check_box"
+        android:layout_alignBottom="@id/media_selector_iv_cover"
+        android:layout_marginStart="2dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/media_selector_iv_play_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/media_selector_tv_duration"
+            android:layout_alignBottom="@id/media_selector_tv_duration"
+            android:paddingTop="1dp"
+            android:src="@drawable/media_selector_ic_play"
+            tools:tint="@android:color/black" />
+
+        <TextView
+            android:id="@+id/media_selector_tv_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_toEndOf="@id/media_selector_iv_play_icon"
+            android:gravity="center"
+            android:textColor="#CBFFFFFF"
+            android:textSize="11sp"
+            tools:text="12:00"
+            tools:textColor="@android:color/black" />
+    </RelativeLayout>
+
+</RelativeLayout>
