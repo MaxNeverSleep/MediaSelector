@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -23,13 +22,22 @@
         android:background="@color/media_selector_mask_color"
         android:visibility="gone" />
 
-    <ImageView
-        android:id="@+id/media_selector_check_box"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+    <View
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignTop="@id/media_selector_check_box"
+        android:layout_alignStart="@id/media_selector_iv_cover"
         android:layout_alignEnd="@id/media_selector_iv_cover"
         android:layout_alignBottom="@id/media_selector_iv_cover"
-        android:padding="3dp"
+        android:background="@drawable/media_selector_gradient_view" />
+
+    <ImageView
+        android:id="@+id/media_selector_check_box"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_alignEnd="@id/media_selector_iv_cover"
+        android:layout_alignBottom="@id/media_selector_iv_cover"
+        android:padding="2dp"
         android:src="@drawable/media_selector_check_box_selector" />
 
     <RelativeLayout
@@ -49,8 +57,7 @@
             android:layout_alignTop="@id/media_selector_tv_duration"
             android:layout_alignBottom="@id/media_selector_tv_duration"
             android:paddingTop="1dp"
-            android:src="@drawable/media_selector_ic_play"
-            tools:tint="@android:color/black" />
+            android:src="@drawable/media_selector_ic_play" />
 
         <TextView
             android:id="@+id/media_selector_tv_duration"
@@ -59,10 +66,10 @@
             android:layout_marginStart="2dp"
             android:layout_toEndOf="@id/media_selector_iv_play_icon"
             android:gravity="center"
-            android:textColor="#CBFFFFFF"
+            android:textColor="@android:color/white"
             android:textSize="11sp"
-            tools:text="12:00"
-            tools:textColor="@android:color/black" />
+            tools:text="12:00" />
     </RelativeLayout>
+
 
 </RelativeLayout>
