@@ -1,10 +1,13 @@
 package com.max.mediaselector
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.max.mediaselector.view.MediaSelectorRecyclerView
 
 class MediaSelectorActivity : AppCompatActivity() {
@@ -18,6 +21,14 @@ class MediaSelectorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            finish()
+            throw SecurityException("media selector need read external storage permission")
+        }
+
         setContentView(R.layout.media_selector_activity_media_selector)
         val mediaSelectorToolbar = findViewById<Toolbar>(R.id.media_selector_tool_bar)
 
