@@ -29,7 +29,7 @@ class MediaSelectorAdapter(private val context: Context) :
     private var maxSelectCount: Int = 0
     private var selectedMediaFiles = ArrayList<MediaFile>()
 
-    private var listener: MediaSelectorRecyclerView.OnSelectCountChangedListener? = null
+    private var listener: MediaSelectorRecyclerView.OnSelectMediaFileListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MediaSelectorViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -56,11 +56,17 @@ class MediaSelectorAdapter(private val context: Context) :
             if (enableSelect && maxSelectCount > 0) {
                 //checkbox
                 holder.ivCheckBox.isSelected = mediaFile.checked
+
                 //translucence mask
                 holder.vMask.visibility = if (holder.ivCheckBox.isSelected) {
                     View.VISIBLE
                 } else {
                     View.GONE
+                }
+
+                //expand click area
+                holder.vCheckBoxClickArea.setOnClickListener {
+                    holder.ivCheckBox.performClick()
                 }
 
                 holder.ivCheckBox.setOnClickListener {
@@ -79,14 +85,15 @@ class MediaSelectorAdapter(private val context: Context) :
                     //selected - > add file to list
                     if (holder.ivCheckBox.isSelected) {
                         selectedMediaFiles.add(mediaFile)
+                        listener?.onSelect(mediaFile)
                     } else {
                         //unselected - > remove file from list
                         if (selectedMediaFiles.contains(mediaFile)) {
                             selectedMediaFiles.remove(mediaFile)
                         }
+                        listener?.onUnSelect(mediaFile)
                     }
 
-                    listener?.onSelectCountChange(selectedMediaFiles.size)
                 }
             }
         }
@@ -107,7 +114,7 @@ class MediaSelectorAdapter(private val context: Context) :
         notifyItemChanged(0, mediaFiles.size)
     }
 
-    fun setOnSelectCountChangedListener(listener: MediaSelectorRecyclerView.OnSelectCountChangedListener) {
+    fun setOnSelectCountChangedListener(listener: MediaSelectorRecyclerView.OnSelectMediaFileListener) {
         this.listener = listener
     }
 
@@ -147,6 +154,8 @@ class MediaSelectorAdapter(private val context: Context) :
         val tvDuration: TextView = itemView.findViewById(R.id.media_selector_tv_duration)
         val rlVideoFlag: RelativeLayout = itemView.findViewById(R.id.media_selector_rl_video_flag)
         val ivCheckBox: ImageView = itemView.findViewById(R.id.media_selector_check_box)
+        val vCheckBoxClickArea: View =
+            itemView.findViewById(R.id.media_selector_check_box_click_area)
         val vMask: View = itemView.findViewById(R.id.media_selector_v_mask)
     }
 

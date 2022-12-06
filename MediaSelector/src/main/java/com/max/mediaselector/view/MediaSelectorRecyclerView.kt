@@ -26,10 +26,6 @@ class MediaSelectorRecyclerView : RecyclerView {
         MediaSelectorAdapter(context)
     }
 
-    fun getSelectedMediaFiles(): ArrayList<MediaFile> {
-        return mediaSelectorAdapter.getSelectedMediaFiles()
-    }
-
     fun init(
         enableImage: Boolean,
         enableVideo: Boolean,
@@ -41,10 +37,6 @@ class MediaSelectorRecyclerView : RecyclerView {
         val mediaFiles = loadMediaFiles(enableImage, enableVideo)
         mediaSelectorAdapter.updateMediaData(enableSelect, maxSelectCount, mediaFiles)
         addItemSpacing()
-    }
-
-    fun setOnSelectCountChangedListener(listener: OnSelectCountChangedListener) {
-        mediaSelectorAdapter.setOnSelectCountChangedListener(listener)
     }
 
     private fun addItemSpacing() {
@@ -124,7 +116,17 @@ class MediaSelectorRecyclerView : RecyclerView {
         return mediaFiles
     }
 
-    interface OnSelectCountChangedListener {
-        fun onSelectCountChange(count: Int)
+    fun getSelectedMediaFiles(): ArrayList<MediaFile> {
+        return mediaSelectorAdapter.getSelectedMediaFiles()
+    }
+
+    fun setOnSelectCountChangedListener(listener: OnSelectMediaFileListener) {
+        mediaSelectorAdapter.setOnSelectCountChangedListener(listener)
+    }
+
+    interface OnSelectMediaFileListener {
+        fun onSelect(mediaFile: MediaFile)
+
+        fun onUnSelect(mediaFile: MediaFile)
     }
 }

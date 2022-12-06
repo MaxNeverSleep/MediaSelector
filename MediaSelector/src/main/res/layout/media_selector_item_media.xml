@@ -23,13 +23,20 @@
         android:visibility="gone" />
 
     <View
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_alignTop="@id/media_selector_check_box"
+        android:layout_height="wrap_content"
         android:layout_alignStart="@id/media_selector_iv_cover"
+        android:layout_alignTop="@id/media_selector_check_box"
         android:layout_alignEnd="@id/media_selector_iv_cover"
         android:layout_alignBottom="@id/media_selector_iv_cover"
         android:background="@drawable/media_selector_gradient_view" />
+
+    <View
+        android:id="@+id/media_selector_check_box_click_area"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignEnd="@id/media_selector_iv_cover"
+        android:layout_alignBottom="@id/media_selector_iv_cover" />
 
     <ImageView
         android:id="@+id/media_selector_check_box"

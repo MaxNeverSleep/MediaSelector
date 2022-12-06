@@ -38,6 +38,7 @@ android {
 dependencies {
 
     implementation project(path: ':MediaSelector')
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'

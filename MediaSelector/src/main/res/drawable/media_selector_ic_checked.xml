@@ -8,6 +8,6 @@
         android:pathData="M197.7,218h648.6v558.6h-648.6z"
         android:strokeWidth="1" />
     <path
-        android:fillColor="?attr/colorAccent"
+        android:fillColor="@color/media_selector_color_primary"
         android:pathData="m426,726l384,-384l-60,-62l-324,324l-152,-152l-60,60l212,214zM810,128q36,0 61,26t25,60l0,596q0,34 -25,60t-61,26l-596,0q-36,0 -61,-26t-25,-60l0,-596q0,-34 25,-60t61,-26l596,0z" />
 </vector>
