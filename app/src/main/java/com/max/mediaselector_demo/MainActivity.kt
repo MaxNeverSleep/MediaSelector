@@ -40,15 +40,16 @@ class MainActivity : AppCompatActivity() {
         addItemSpacing()
 
         binding.btnOpenMediaSelector.setOnClickListener {
-            if (PermissionUtils.isPermissionGranted(
-                    this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-            ) {
-                openSelectorLauncher.launch(Intent(this, MediaSelectorActivity::class.java))
-            } else {
-                permissionRequestLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-            }
+//            if (PermissionUtils.isPermissionGranted(
+//                    this,
+//                    Manifest.permission.READ_EXTERNAL_STORAGE
+//                )
+//            ) {
+//                openSelectorLauncher.launch(Intent(this, MediaSelectorActivity::class.java))
+//            } else {
+//                permissionRequestLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+//            }
+            openSelectorLauncher.launch(Intent(this, MediaSelectorActivity::class.java))
         }
     }
 
