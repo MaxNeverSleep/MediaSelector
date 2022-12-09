@@ -22,13 +22,6 @@ class MediaSelectorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) !=
-            PackageManager.PERMISSION_GRANTED
-        ) {
-            finish()
-            throw SecurityException("media selector need read external storage permission")
-        }
-
         setContentView(R.layout.media_selector_activity_media_selector)
         val mediaSelectorToolbar = findViewById<Toolbar>(R.id.media_selector_tool_bar)
 
