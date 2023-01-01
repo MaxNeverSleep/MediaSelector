@@ -1,14 +1,12 @@
 package com.max.mediaselector
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import com.max.mediaselector.view.MediaSelectorRecyclerView
+import com.max.mediaselector.databinding.MediaSelectorActivityBinding
+import com.max.mediaselector.fragment.MediaListFragment
 
 class MediaSelectorActivity : AppCompatActivity() {
 
@@ -16,11 +14,13 @@ class MediaSelectorActivity : AppCompatActivity() {
         const val SELECTED_MEDIA_FILES = "selected_media_files"
     }
 
-    private lateinit var mediaSelectorRecyclerView: MediaSelectorRecyclerView
-    private lateinit var mediaSelectConfirmButton: Button
+    private val binding: MediaSelectorActivityBinding by lazy {
+        MediaSelectorActivityBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) !=
             PackageManager.PERMISSION_GRANTED
@@ -29,60 +29,21 @@ class MediaSelectorActivity : AppCompatActivity() {
             SecurityException("media selector need read external storage permission").printStackTrace()
         }
 
-        setContentView(R.layout.media_selector_activity_media_selector)
-        val mediaSelectorToolbar = findViewById<Toolbar>(R.id.media_selector_tool_bar)
+        val mediaListFragment = MediaListFragment()
 
-        setSupportActionBar(mediaSelectorToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val maxSelectCount = 9
+        supportFragmentManager.beginTransaction()
+            .add(binding.mediaSelectorFragmentContainer.id, mediaListFragment)
+            .addToBackStack(MediaListFragment::class.java.name)
+            .commit()
 
-        mediaSelectorRecyclerView = findViewById(R.id.media_selector_recycler_view)
-        mediaSelectorRecyclerView.init(
-            enableImage = true,
-            enableVideo = true,
-            enableSelect = true,
-            maxSelectCount = 9
-        )
-
-        mediaSelectConfirmButton = findViewById(R.id.media_selector_select_confirm_button)
-
-        refreshSelectedCountText(0, maxSelectCount)
-        mediaSelectorRecyclerView.setOnSelectCountChangedListener(object :
-            MediaSelectorRecyclerView.OnSelectMediaFileListener {
-
-            override fun onSelect(mediaFile: MediaFile) {
-                refreshSelectedCountText(
-                    mediaSelectorRecyclerView.getSelectedMediaFiles().size,
-                    maxSelectCount
-                )
-            }
-
-            override fun onUnSelect(mediaFile: MediaFile) {
-                refreshSelectedCountText(
-                    mediaSelectorRecyclerView.getSelectedMediaFiles().size,
-                    maxSelectCount
-                )
-            }
-        })
-
-        mediaSelectConfirmButton.setOnClickListener {
-            val outIntent = Intent()
-            outIntent.putExtra(
-                SELECTED_MEDIA_FILES,
-                mediaSelectorRecyclerView.getSelectedMediaFiles()
-            )
-            setResult(RESULT_OK, outIntent)
-            finish()
-        }
     }
 
-    private fun refreshSelectedCountText(currentSelectCount: Int, maxSelectCount: Int) {
-        mediaSelectConfirmButton.text =
-            getString(
-                R.string.media_selector_confirm_button_pattern,
-                currentSelectCount,
-                maxSelectCount
-            )
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            finish()
+        } else {
+            supportFragmentManager.popBackStack()
+        }
     }
 
 }

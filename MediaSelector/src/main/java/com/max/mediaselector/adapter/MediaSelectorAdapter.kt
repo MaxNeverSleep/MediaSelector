@@ -1,6 +1,7 @@
 package com.max.mediaselector.adapter
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,8 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.max.mediaselector.MediaFile
 import com.max.mediaselector.R
 import com.max.mediaselector.view.MediaSelectorRecyclerView
@@ -29,7 +32,11 @@ class MediaSelectorAdapter(private val context: Context) :
     private var maxSelectCount: Int = 0
     private var selectedMediaFiles = ArrayList<MediaFile>()
 
-    private var listener: MediaSelectorRecyclerView.OnSelectMediaFileListener? = null
+    private var onSelectMediaFileListener:
+            MediaSelectorRecyclerView.OnSelectMediaFileListener? = null
+
+    private var onClickMediaItemListener:
+            MediaSelectorRecyclerView.OnMediaItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MediaSelectorViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -39,17 +46,25 @@ class MediaSelectorAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: MediaSelectorViewHolder, position: Int) {
         mediaFiles?.get(position)?.let { mediaFile ->
+
             //Image or Video's Cover
             Glide.with(context)
                 .load(mediaFile.path)
                 .into(holder.ivCover)
 
+
             //Video Duration (if it's video)
-            if (mediaFile.duration > 0) {
+            if (mediaFile.mediaType == MediaFile.MediaType.VIDEO) {
                 holder.rlVideoFlag.visibility = View.VISIBLE
                 holder.tvDuration.text = formatDuration(mediaFile.duration)
+                holder.ivCover.setOnClickListener {
+                    onClickMediaItemListener?.onMediaItemClick(mediaFile)
+                }
             } else {
                 holder.rlVideoFlag.visibility = View.GONE
+                holder.ivCover.setOnClickListener {
+                    onClickMediaItemListener?.onMediaItemClick(mediaFile)
+                }
             }
 
             //CheckBox (if select function is enable)
@@ -85,13 +100,13 @@ class MediaSelectorAdapter(private val context: Context) :
                     //selected - > add file to list
                     if (holder.ivCheckBox.isSelected) {
                         selectedMediaFiles.add(mediaFile)
-                        listener?.onSelect(mediaFile)
+                        onSelectMediaFileListener?.onSelect(mediaFile)
                     } else {
                         //unselected - > remove file from list
                         if (selectedMediaFiles.contains(mediaFile)) {
                             selectedMediaFiles.remove(mediaFile)
                         }
-                        listener?.onUnSelect(mediaFile)
+                        onSelectMediaFileListener?.onUnSelect(mediaFile)
                     }
 
                 }
@@ -115,7 +130,11 @@ class MediaSelectorAdapter(private val context: Context) :
     }
 
     fun setOnSelectCountChangedListener(listener: MediaSelectorRecyclerView.OnSelectMediaFileListener) {
-        this.listener = listener
+        this.onSelectMediaFileListener = listener
+    }
+
+    fun setOnMediaItemClickListener(listener: MediaSelectorRecyclerView.OnMediaItemClickListener) {
+        this.onClickMediaItemListener = listener
     }
 
     fun getSelectedMediaFiles(): ArrayList<MediaFile> {

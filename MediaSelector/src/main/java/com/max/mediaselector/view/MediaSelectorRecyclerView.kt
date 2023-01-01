@@ -5,6 +5,7 @@ import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.max.mediaselector.MediaFile
@@ -124,9 +125,18 @@ class MediaSelectorRecyclerView : RecyclerView {
         mediaSelectorAdapter.setOnSelectCountChangedListener(listener)
     }
 
+    fun setOnMediaItemClickListener(listener: OnMediaItemClickListener) {
+        mediaSelectorAdapter.setOnMediaItemClickListener(listener)
+    }
+
     interface OnSelectMediaFileListener {
         fun onSelect(mediaFile: MediaFile)
 
         fun onUnSelect(mediaFile: MediaFile)
     }
+
+    interface OnMediaItemClickListener {
+        fun onMediaItemClick(mediaFile: MediaFile)
+    }
+
 }
