@@ -1,18 +1,12 @@
 package com.max.mediaselector.fragment
 
-import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.transition.*
 import com.max.mediaselector.MediaFile
 import com.max.mediaselector.MediaSelectorActivity
 import com.max.mediaselector.R
@@ -73,6 +67,7 @@ class MediaListFragment : Fragment() {
         binding.mediaSelectorRecyclerView.setOnMediaItemClickListener(object :
             MediaSelectorRecyclerView.OnMediaItemClickListener {
             override fun onMediaItemClick(mediaFile: MediaFile) {
+
                 val fragment: Fragment = when (mediaFile.mediaType) {
                     MediaFile.MediaType.IMAGE -> {
                         MediaImagePreviewFragment.getInstance(mediaFile)
@@ -116,22 +111,5 @@ class MediaListFragment : Fragment() {
             )
     }
 
-    private class CoverTransition : TransitionSet {
-        constructor() : super() {
-            init()
-        }
-
-        constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-            init()
-        }
-
-        private fun init() {
-            ordering = ORDERING_TOGETHER
-            addTransition(ChangeBounds())
-            addTransition(ChangeTransform())
-            addTransition(ChangeImageTransform())
-        }
-
-    }
 
 }

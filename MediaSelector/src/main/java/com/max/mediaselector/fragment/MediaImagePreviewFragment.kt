@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.max.mediaselector.MediaFile
 import com.max.mediaselector.databinding.MediaSelectorFragmentPreviewImageBinding
 
@@ -43,6 +42,7 @@ class MediaImagePreviewFragment : Fragment {
 
         Glide.with(requireActivity())
             .load(mediaFile?.path)
+            .thumbnail(0.1f)
             .into(binding.imageView)
 
         return binding.root
