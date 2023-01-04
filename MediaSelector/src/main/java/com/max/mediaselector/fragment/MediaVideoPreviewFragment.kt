@@ -60,13 +60,6 @@ class MediaVideoPreviewFragment : Fragment {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        (activity as AppCompatActivity).setSupportActionBar(binding.mediaSelectorToolBar)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        binding.mediaSelectorToolBar.setNavigationOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
-
         Glide.with(requireActivity())
             .load(mediaFile?.path)
             .thumbnail(0.1f)

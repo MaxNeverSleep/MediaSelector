@@ -66,16 +66,22 @@ class MediaListFragment : Fragment() {
 
         binding.mediaSelectorRecyclerView.setOnMediaItemClickListener(object :
             MediaSelectorRecyclerView.OnMediaItemClickListener {
-            override fun onMediaItemClick(mediaFile: MediaFile) {
+            override fun onMediaItemClick(position: Int, mediaFile: MediaFile) {
 
-                val fragment: Fragment = when (mediaFile.mediaType) {
-                    MediaFile.MediaType.IMAGE -> {
-                        MediaImagePreviewFragment.getInstance(mediaFile)
-                    }
-                    MediaFile.MediaType.VIDEO -> {
-                        MediaVideoPreviewFragment.getInstance(mediaFile)
-                    }
-                }
+//                val fragment: Fragment = when (mediaFile.mediaType) {
+//                    MediaFile.MediaType.IMAGE -> {
+//                        MediaImagePreviewFragment.getInstance(mediaFile)
+//                    }
+//                    MediaFile.MediaType.VIDEO -> {
+//                        MediaVideoPreviewFragment.getInstance(mediaFile)
+//                    }
+//                }
+
+                val fragment =
+                    MediaPreviewFragment.getInstance(
+                        position,
+                        binding.mediaSelectorRecyclerView.getMediaFiles()
+                    )
 
                 parentFragmentManager.beginTransaction()
                     .setCustomAnimations(

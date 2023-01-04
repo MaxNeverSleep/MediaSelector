@@ -27,6 +27,8 @@ class MediaSelectorRecyclerView : RecyclerView {
         MediaSelectorAdapter(context)
     }
 
+    private val mediaFiles = ArrayList<MediaFile>()
+
     fun init(
         enableImage: Boolean,
         enableVideo: Boolean,
@@ -96,7 +98,7 @@ class MediaSelectorRecyclerView : RecyclerView {
         enableImage: Boolean,
         enableVideo: Boolean
     ): ArrayList<MediaFile> {
-        val mediaFiles = ArrayList<MediaFile>()
+        mediaFiles.clear()
 
         if (enableImage) {
             val images = MediaScanner.loadImages(context)
@@ -129,6 +131,10 @@ class MediaSelectorRecyclerView : RecyclerView {
         mediaSelectorAdapter.setOnMediaItemClickListener(listener)
     }
 
+    fun getMediaFiles(): ArrayList<MediaFile> {
+        return mediaFiles
+    }
+
     interface OnSelectMediaFileListener {
         fun onSelect(mediaFile: MediaFile)
 
@@ -136,7 +142,7 @@ class MediaSelectorRecyclerView : RecyclerView {
     }
 
     interface OnMediaItemClickListener {
-        fun onMediaItemClick(mediaFile: MediaFile)
+        fun onMediaItemClick(position: Int, mediaFile: MediaFile)
     }
 
 }

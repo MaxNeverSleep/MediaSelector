@@ -60,7 +60,7 @@ class MediaSelectorAdapter(private val context: Context) :
                 holder.rlVideoFlag.visibility = View.VISIBLE
                 holder.tvDuration.text = formatDuration(mediaFile.duration)
                 holder.ivCover.setOnClickListener {
-                    onClickMediaItemListener?.onMediaItemClick(mediaFile)
+                    onClickMediaItemListener?.onMediaItemClick(position, mediaFile)
                 }
             } else {
                 //Image
@@ -70,7 +70,7 @@ class MediaSelectorAdapter(private val context: Context) :
 
                 holder.rlVideoFlag.visibility = View.GONE
                 holder.ivCover.setOnClickListener {
-                    onClickMediaItemListener?.onMediaItemClick(mediaFile)
+                    onClickMediaItemListener?.onMediaItemClick(position, mediaFile)
                 }
             }
 
