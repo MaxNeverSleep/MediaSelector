@@ -42,10 +42,40 @@
 
     </RelativeLayout>
 
-    <VideoView
-        android:id="@+id/video_view"
+    <RelativeLayout
+        android:id="@+id/media_selector_video_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/media_selector_tool_bar_layout" />
+        android:layout_below="@id/media_selector_tool_bar_layout">
+
+        <VideoView
+            android:id="@+id/media_selector_video_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <RelativeLayout
+            android:id="@+id/media_selector_video_cover_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@id/media_selector_video_view"
+            android:layout_alignBottom="@id/media_selector_video_view">
+
+            <ImageView
+                android:id="@+id/media_selector_video_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:alpha="0.8"
+                android:src="@drawable/media_selector_ic_play" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

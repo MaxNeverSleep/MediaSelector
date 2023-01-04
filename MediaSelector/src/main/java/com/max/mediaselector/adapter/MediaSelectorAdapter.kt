@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.max.mediaselector.MediaFile
 import com.max.mediaselector.R
 import com.max.mediaselector.view.MediaSelectorRecyclerView
@@ -47,20 +48,26 @@ class MediaSelectorAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: MediaSelectorViewHolder, position: Int) {
         mediaFiles?.get(position)?.let { mediaFile ->
 
-            //Image or Video's Cover
-            Glide.with(context)
-                .load(mediaFile.path)
-                .into(holder.ivCover)
-
 
             //Video Duration (if it's video)
             if (mediaFile.mediaType == MediaFile.MediaType.VIDEO) {
+                //Video's Cover
+                Glide.with(context)
+                    .load(mediaFile.path)
+                    .apply(RequestOptions().frame(0))
+                    .into(holder.ivCover)
+
                 holder.rlVideoFlag.visibility = View.VISIBLE
                 holder.tvDuration.text = formatDuration(mediaFile.duration)
                 holder.ivCover.setOnClickListener {
                     onClickMediaItemListener?.onMediaItemClick(mediaFile)
                 }
             } else {
+                //Image
+                Glide.with(context)
+                    .load(mediaFile.path)
+                    .into(holder.ivCover)
+
                 holder.rlVideoFlag.visibility = View.GONE
                 holder.ivCover.setOnClickListener {
                     onClickMediaItemListener?.onMediaItemClick(mediaFile)

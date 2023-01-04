@@ -42,6 +42,7 @@ class MediaSelectorActivity : AppCompatActivity() {
         if (supportFragmentManager.backStackEntryCount == 1) {
             finish()
         } else {
+            onBackPressedDispatcher.onBackPressed()
             supportFragmentManager.popBackStack()
         }
     }

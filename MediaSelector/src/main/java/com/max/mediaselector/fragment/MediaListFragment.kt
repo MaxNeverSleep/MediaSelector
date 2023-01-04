@@ -77,7 +77,6 @@ class MediaListFragment : Fragment() {
                     }
                 }
 
-
                 parentFragmentManager.beginTransaction()
                     .setCustomAnimations(
                         R.anim.media_selector_fragment_enter_anim,
