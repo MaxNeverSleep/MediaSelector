@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.max.mediaselector.databinding.MediaSelectorActivityPreviewBinding
 import com.max.mediaselector.fragment.MediaImagePreviewFragment
 import com.max.mediaselector.fragment.MediaVideoPreviewFragment
@@ -51,6 +52,19 @@ class MediaSelectorPreviewActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.mediaSelectorViewPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.mediaSelectorIndicator.text =
+                    getString(
+                        R.string.media_selector_confirm_indicator,
+                        position + 1,
+                        mediaFiles.size
+                    )
+            }
+        })
 
         binding.mediaSelectorViewPager.offscreenPageLimit = 3
         binding.mediaSelectorViewPager.adapter = adapter

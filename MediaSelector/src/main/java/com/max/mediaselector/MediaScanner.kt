@@ -18,7 +18,7 @@ object MediaScanner {
     private val IMAGE_PROJECTION = arrayOf(
         MediaStore.Images.Media._ID,
         MediaStore.Images.Media.DATA,
-        MediaStore.Images.Media.DATE_TAKEN,
+        MediaStore.Images.Media.DATE_MODIFIED,
         MediaStore.Images.Media.DISPLAY_NAME,
         MediaStore.Images.Media.SIZE
     )
@@ -26,7 +26,7 @@ object MediaScanner {
     private val VIDEO_PROJECTION = arrayOf(
         MediaStore.Video.Media._ID,
         MediaStore.Video.Media.DATA,
-        MediaStore.Video.Media.DATE_TAKEN,
+        MediaStore.Video.Media.DATE_MODIFIED,
         MediaStore.Video.Media.DISPLAY_NAME,
         MediaStore.Video.Media.SIZE,
         MediaStore.Video.Media.DURATION
