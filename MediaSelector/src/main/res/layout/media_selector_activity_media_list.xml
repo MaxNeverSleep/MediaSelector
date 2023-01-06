@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    tools:context=".MediaSelectorActivity">
+    tools:context=".MediaSelectorListActivity">
 
     <RelativeLayout
         android:id="@+id/media_selector_tool_bar_layout"

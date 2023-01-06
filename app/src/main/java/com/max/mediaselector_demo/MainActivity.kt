@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.max.mediaselector.MediaFile
-import com.max.mediaselector.MediaSelectorActivity
+import com.max.mediaselector.MediaSelectorListActivity
 import com.max.mediaselector_demo.databinding.ActivityMainBinding
 import com.max.mediaselector_demo.databinding.ItemSelectedResultBinding
 
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 //            } else {
 //                permissionRequestLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
 //            }
-            openSelectorLauncher.launch(Intent(this, MediaSelectorActivity::class.java))
+            openSelectorLauncher.launch(Intent(this, MediaSelectorListActivity::class.java))
         }
     }
 
@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             val mediaFiles =
-                result.data?.getParcelableArrayListExtra<MediaFile>(MediaSelectorActivity.SELECTED_MEDIA_FILES)
+                result.data?.getParcelableArrayListExtra<MediaFile>(MediaSelectorListActivity.SELECTED_MEDIA_FILES)
             Toast.makeText(this, mediaFiles?.size.toString(), Toast.LENGTH_LONG).show()
             adapter.setMediaFiles(mediaFiles)
         }
@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             } else {
-                openSelectorLauncher.launch(Intent(this, MediaSelectorActivity::class.java))
+                openSelectorLauncher.launch(Intent(this, MediaSelectorListActivity::class.java))
             }
         }
 

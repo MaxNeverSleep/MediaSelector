@@ -6,7 +6,12 @@
 
     <application>
         <activity
-            android:name=".MediaSelectorActivity"
+            android:name=".MediaSelectorListActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MediaSelectorActivity" />
+
+        <activity
+            android:name=".MediaSelectorPreviewActivity"
             android:exported="true"
             android:theme="@style/Theme.MediaSelectorActivity" />
     </application>
