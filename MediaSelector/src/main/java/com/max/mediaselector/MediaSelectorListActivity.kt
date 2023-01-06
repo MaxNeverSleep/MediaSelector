@@ -64,13 +64,18 @@ class MediaSelectorListActivity : AppCompatActivity() {
         binding.mediaSelectorRecyclerView.setOnMediaItemClickListener(object :
             MediaSelectorRecyclerView.OnMediaItemClickListener {
             override fun onMediaItemClick(position: Int, mediaFile: MediaFile) {
-                val intent = Intent(this@MediaSelectorListActivity, MediaSelectorPreviewActivity::class.java)
+                val intent =
+                    Intent(this@MediaSelectorListActivity, MediaSelectorPreviewActivity::class.java)
                 intent.putParcelableArrayListExtra(
                     "media_files",
                     binding.mediaSelectorRecyclerView.getMediaFiles()
                 )
                 intent.putExtra("position", position)
                 startActivity(intent)
+                overridePendingTransition(
+                    R.anim.media_selector_fragment_start_enter_anim,
+                    R.anim.media_selector_fragment_start_exit_anim
+                )
 
             }
         })

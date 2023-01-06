@@ -57,5 +57,13 @@ class MediaSelectorPreviewActivity : AppCompatActivity() {
         binding.mediaSelectorViewPager.setCurrentItem(position, false)
     }
 
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(
+            R.anim.media_selector_fragment_finish_enter_anim,
+            R.anim.media_selector_fragment_finish_exit_anim
+        )
+    }
+
 
 }

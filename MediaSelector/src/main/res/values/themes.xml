@@ -12,4 +12,15 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Theme.MediaPreviewActivity" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/media_selector_toolbar_background_color</item>
+        <item name="colorPrimaryVariant">@color/media_selector_toolbar_background_color</item>
+        <item name="colorOnPrimary">@color/media_selector_toolbar_background_color</item>
+        <item name="colorControlNormal">@color/media_selector_toolbar_text_color</item>
+        <!-- Status bar color. -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/media_selector_toolbar_background_color</item>
+        <!-- Customize your theme here. -->
+    </style>
+
 </resources>
