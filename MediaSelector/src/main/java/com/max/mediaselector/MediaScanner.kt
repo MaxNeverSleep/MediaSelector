@@ -32,12 +32,25 @@ object MediaScanner {
         MediaStore.Video.Media.DURATION
     )
 
+    private var localImageCaches = ArrayList<MediaFile>()
+    private var localVideoCaches = ArrayList<MediaFile>()
+
+    fun getLoadedImagesCache(): ArrayList<MediaFile> {
+        return localImageCaches
+    }
+
+    fun getLoadedVideoCache(): ArrayList<MediaFile> {
+        return localVideoCaches
+    }
+
     fun loadImages(context: Context): ArrayList<MediaFile> {
-        return queryImages(context.contentResolver)
+        localImageCaches = queryImages(context.contentResolver)
+        return localImageCaches
     }
 
     fun loadVideos(context: Context): ArrayList<MediaFile> {
-        return queryVideo(context.contentResolver)
+        localVideoCaches = queryVideo(context.contentResolver)
+        return localVideoCaches
     }
 
     private fun getCursor(

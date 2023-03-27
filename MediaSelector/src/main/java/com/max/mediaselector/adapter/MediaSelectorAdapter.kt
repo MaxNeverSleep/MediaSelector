@@ -174,6 +174,10 @@ class MediaSelectorAdapter(private val context: Context) :
         }
     }
 
+    fun selectMediaFile(mediaFile: MediaFile) {
+        notifyItemChanged(this.mediaFiles?.indexOf(mediaFile)!!)
+    }
+
 
     class MediaSelectorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivCover: ImageView = itemView.findViewById(R.id.media_selector_iv_cover)

@@ -131,6 +131,10 @@ class MediaSelectorRecyclerView : RecyclerView {
         mediaSelectorAdapter.setOnMediaItemClickListener(listener)
     }
 
+    fun selectMediaFiles(){
+//        mediaSelectorAdapter.selectMediaFile()
+    }
+
     fun getMediaFiles(): ArrayList<MediaFile> {
         return mediaFiles
     }

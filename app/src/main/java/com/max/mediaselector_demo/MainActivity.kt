@@ -20,6 +20,7 @@ import com.max.mediaselector.MediaFile
 import com.max.mediaselector.MediaSelectorListActivity
 import com.max.mediaselector_demo.databinding.ActivityMainBinding
 import com.max.mediaselector_demo.databinding.ItemSelectedResultBinding
+import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,23 +35,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        binding.rvSelectResult.layoutManager = GridLayoutManager(this, 4)
-        binding.rvSelectResult.adapter = adapter
-        addItemSpacing()
-
-        binding.btnOpenMediaSelector.setOnClickListener {
-//            if (PermissionUtils.isPermissionGranted(
-//                    this,
-//                    Manifest.permission.READ_EXTERNAL_STORAGE
-//                )
-//            ) {
-//                openSelectorLauncher.launch(Intent(this, MediaSelectorActivity::class.java))
-//            } else {
-//                permissionRequestLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-//            }
-            openSelectorLauncher.launch(Intent(this, MediaSelectorListActivity::class.java))
-        }
     }
 
     class SelectedResultAdapter(private val activity: FragmentActivity) :

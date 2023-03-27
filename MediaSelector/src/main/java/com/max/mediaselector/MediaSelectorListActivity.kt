@@ -19,6 +19,8 @@ class MediaSelectorListActivity : AppCompatActivity() {
         MediaSelectorActivityMediaListBinding.inflate(layoutInflater)
     }
 
+    private var maxSelectCount = 9
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -33,7 +35,7 @@ class MediaSelectorListActivity : AppCompatActivity() {
         setSupportActionBar(binding.mediaSelectorToolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val maxSelectCount = 9
+        maxSelectCount = intent.getIntExtra("max_select_count", 9)
 
         binding.mediaSelectorRecyclerView.init(
             enableImage = true,
@@ -70,13 +72,17 @@ class MediaSelectorListActivity : AppCompatActivity() {
                     "media_files",
                     binding.mediaSelectorRecyclerView.getMediaFiles()
                 )
+                intent.putExtra(
+                    "selected_count",
+                    binding.mediaSelectorRecyclerView.getSelectedMediaFiles().size
+                )
+                intent.putExtra("max_select_count", maxSelectCount)
                 intent.putExtra("position", position)
                 startActivity(intent)
                 overridePendingTransition(
                     R.anim.media_selector_fragment_start_enter_anim,
                     R.anim.media_selector_fragment_start_exit_anim
                 )
-
             }
         })
 
