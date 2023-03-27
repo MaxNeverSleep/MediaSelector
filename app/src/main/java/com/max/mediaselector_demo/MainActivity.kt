@@ -35,6 +35,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        binding.rvSelectResult.layoutManager = GridLayoutManager(this, 4)
+        binding.rvSelectResult.adapter = adapter
+        addItemSpacing()
+
+        binding.btnOpenMediaSelector.setOnClickListener {
+            if (PermissionUtils.isPermissionGranted(
+                    this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            ) {
+                openSelectorLauncher.launch(Intent(this, MediaSelectorListActivity::class.java))
+            } else {
+                permissionRequestLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+        }
     }
 
     class SelectedResultAdapter(private val activity: FragmentActivity) :
