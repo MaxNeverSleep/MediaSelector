@@ -2,6 +2,8 @@ package com.max.mediaselector.view
 
 import android.content.Context
 import android.graphics.Rect
+import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -134,9 +136,10 @@ class MediaSelectorRecyclerView : RecyclerView {
                 return@sortWith 0
             }
 
-            handler.post {
+            Handler(Looper.getMainLooper()).post {
                 callback.invoke(mediaFiles)
             }
+
         }
     }
 
