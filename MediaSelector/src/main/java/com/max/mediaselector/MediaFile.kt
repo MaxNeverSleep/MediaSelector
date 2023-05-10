@@ -2,7 +2,6 @@ package com.max.mediaselector
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.io.Serializable
 
 class MediaFile(
     val mediaType: MediaType,
@@ -55,6 +54,18 @@ class MediaFile(
         override fun newArray(size: Int): Array<MediaFile?> {
             return arrayOfNulls(size)
         }
+    }
+
+    fun copy(): MediaFile {
+        return MediaFile(
+            mediaType,
+            id,
+            name,
+            path,
+            size,
+            timeStamp,
+            duration
+        )
     }
 
 }

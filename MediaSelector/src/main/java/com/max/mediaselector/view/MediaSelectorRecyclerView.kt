@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.max.mediaselector.MediaFile
 import com.max.mediaselector.MediaScanner
+import com.max.mediaselector.MediaSelectorResult
 import com.max.mediaselector.adapter.MediaSelectorAdapter
 import java.util.*
+import kotlin.concurrent.thread
 
 class MediaSelectorRecyclerView : RecyclerView {
 
@@ -29,17 +31,29 @@ class MediaSelectorRecyclerView : RecyclerView {
 
     private val mediaFiles = ArrayList<MediaFile>()
 
+    var isInitialized: Boolean = false
+
     fun init(
         enableImage: Boolean,
         enableVideo: Boolean,
         enableSelect: Boolean,
-        maxSelectCount: Int,
     ) {
         layoutManager = GridLayoutManager(context, 4)
         adapter = mediaSelectorAdapter
-        val mediaFiles = loadMediaFiles(enableImage, enableVideo)
-        mediaSelectorAdapter.updateMediaData(enableSelect, maxSelectCount, mediaFiles)
-        addItemSpacing()
+        loadMediaFiles(enableImage, enableVideo) { mediaFiles ->
+            mediaSelectorAdapter.updateMediaData(
+                enableSelect,
+                MediaSelectorResult.getMaxCount(),
+                mediaFiles
+            )
+            addItemSpacing()
+            isInitialized = true
+        }
+
+    }
+
+    fun notifyDataSetChanged() {
+        mediaSelectorAdapter.notifyDataSetChanged()
     }
 
     private fun addItemSpacing() {
@@ -96,31 +110,34 @@ class MediaSelectorRecyclerView : RecyclerView {
 
     private fun loadMediaFiles(
         enableImage: Boolean,
-        enableVideo: Boolean
-    ): ArrayList<MediaFile> {
-        mediaFiles.clear()
+        enableVideo: Boolean,
+        callback: (ArrayList<MediaFile>) -> Unit
+    ) {
+        thread {
+            mediaFiles.clear()
+            MediaSelectorResult.clear()
 
-        if (enableImage) {
-            val images = MediaScanner.loadImages(context)
-            mediaFiles.addAll(images)
-        }
-
-        if (enableVideo) {
-            val videos = MediaScanner.loadVideos(context)
-            mediaFiles.addAll(videos)
-        }
-
-        mediaFiles.sortWith { p0, p1 ->
-            if (p0 != null && p1 != null) {
-                return@sortWith p1.timeStamp.compareTo(p0.timeStamp)
+            if (enableImage) {
+                val images = MediaScanner.loadImages(context)
+                mediaFiles.addAll(images)
             }
-            return@sortWith 0
-        }
-        return mediaFiles
-    }
 
-    fun getSelectedMediaFiles(): ArrayList<MediaFile> {
-        return mediaSelectorAdapter.getSelectedMediaFiles()
+            if (enableVideo) {
+                val videos = MediaScanner.loadVideos(context)
+                mediaFiles.addAll(videos)
+            }
+
+            mediaFiles.sortWith { p0, p1 ->
+                if (p0 != null && p1 != null) {
+                    return@sortWith p1.timeStamp.compareTo(p0.timeStamp)
+                }
+                return@sortWith 0
+            }
+
+            handler.post {
+                callback.invoke(mediaFiles)
+            }
+        }
     }
 
     fun setOnSelectCountChangedListener(listener: OnSelectMediaFileListener) {
@@ -129,14 +146,6 @@ class MediaSelectorRecyclerView : RecyclerView {
 
     fun setOnMediaItemClickListener(listener: OnMediaItemClickListener) {
         mediaSelectorAdapter.setOnMediaItemClickListener(listener)
-    }
-
-    fun selectMediaFiles(){
-//        mediaSelectorAdapter.selectMediaFile()
-    }
-
-    fun getMediaFiles(): ArrayList<MediaFile> {
-        return mediaFiles
     }
 
     interface OnSelectMediaFileListener {

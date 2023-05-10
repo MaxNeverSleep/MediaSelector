@@ -21,6 +21,22 @@ class MediaSelectorListActivity : AppCompatActivity() {
 
     private var maxSelectCount = 9
 
+    override fun onResume() {
+        super.onResume()
+        if (binding.mediaSelectorRecyclerView.isInitialized) {
+            binding.mediaSelectorRecyclerView.notifyDataSetChanged()
+            refreshSelectedCountText(
+                MediaSelectorResult.getSelectedCount(),
+                MediaSelectorResult.getMaxCount()
+            )
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        MediaSelectorResult.clear()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -36,12 +52,12 @@ class MediaSelectorListActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         maxSelectCount = intent.getIntExtra("max_select_count", 9)
+        MediaSelectorResult.init(maxSelectCount)
 
         binding.mediaSelectorRecyclerView.init(
             enableImage = true,
             enableVideo = true,
             enableSelect = true,
-            maxSelectCount = 9
         )
 
         refreshSelectedCountText(0, maxSelectCount)
@@ -49,16 +65,18 @@ class MediaSelectorListActivity : AppCompatActivity() {
             MediaSelectorRecyclerView.OnSelectMediaFileListener {
 
             override fun onSelect(mediaFile: MediaFile) {
+                MediaSelectorResult.addMediaFile(mediaFile)
                 refreshSelectedCountText(
-                    binding.mediaSelectorRecyclerView.getSelectedMediaFiles().size,
-                    maxSelectCount
+                    MediaSelectorResult.getSelectedCount(),
+                    MediaSelectorResult.getMaxCount()
                 )
             }
 
             override fun onUnSelect(mediaFile: MediaFile) {
+                MediaSelectorResult.removeMediaFile(mediaFile)
                 refreshSelectedCountText(
-                    binding.mediaSelectorRecyclerView.getSelectedMediaFiles().size,
-                    maxSelectCount
+                    MediaSelectorResult.getSelectedCount(),
+                    MediaSelectorResult.getMaxCount()
                 )
             }
         })
@@ -68,15 +86,6 @@ class MediaSelectorListActivity : AppCompatActivity() {
             override fun onMediaItemClick(position: Int, mediaFile: MediaFile) {
                 val intent =
                     Intent(this@MediaSelectorListActivity, MediaSelectorPreviewActivity::class.java)
-                intent.putParcelableArrayListExtra(
-                    "media_files",
-                    binding.mediaSelectorRecyclerView.getMediaFiles()
-                )
-                intent.putExtra(
-                    "selected_count",
-                    binding.mediaSelectorRecyclerView.getSelectedMediaFiles().size
-                )
-                intent.putExtra("max_select_count", maxSelectCount)
                 intent.putExtra("position", position)
                 startActivity(intent)
                 overridePendingTransition(
@@ -90,9 +99,10 @@ class MediaSelectorListActivity : AppCompatActivity() {
             val outIntent = Intent()
             outIntent.putExtra(
                 SELECTED_MEDIA_FILES,
-                binding.mediaSelectorRecyclerView.getSelectedMediaFiles()
+                MediaSelectorResult.getResult()
             )
             setResult(RESULT_OK, outIntent)
+            MediaSelectorResult.clear()
             finish()
         }
 

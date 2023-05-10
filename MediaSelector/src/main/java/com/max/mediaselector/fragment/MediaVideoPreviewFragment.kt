@@ -38,15 +38,22 @@ class MediaVideoPreviewFragment : Fragment {
     private var mediaFile: MediaFile? = null
     private var isPrepared: Boolean = false
 
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            binding.mediaSelectorVideoCoverContainer.visibility = View.VISIBLE
+            binding.mediaSelectorVideoView.visibility = View.INVISIBLE
+            requireActivity().finish()
+        }
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                binding.mediaSelectorVideoCoverContainer.visibility = View.VISIBLE
-                binding.mediaSelectorVideoView.visibility = View.INVISIBLE
-                requireActivity().finish()
-            }
-        })
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        onBackPressedCallback.remove()
     }
 
     override fun onCreateView(

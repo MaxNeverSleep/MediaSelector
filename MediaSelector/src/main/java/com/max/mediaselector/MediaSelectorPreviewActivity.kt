@@ -17,8 +17,6 @@ class MediaSelectorPreviewActivity : AppCompatActivity() {
     }
 
     private var position: Int = 0
-    private var selectedCount: Int = 0
-    private var maxSelectCount: Int = 9
     private var mediaFiles = ArrayList<MediaFile>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +26,6 @@ class MediaSelectorPreviewActivity : AppCompatActivity() {
         if (intent.hasExtra("position")) {
             mediaFiles = loadMediaFilesCaches()
             position = intent.getIntExtra("position", 0)
-            selectedCount = intent.getIntExtra("selected_count", 0)
-            maxSelectCount = intent.getIntExtra("max_select_count", 0)
         } else {
             finish()
         }
@@ -42,7 +38,11 @@ class MediaSelectorPreviewActivity : AppCompatActivity() {
             getString(R.string.media_selector_confirm_indicator, position + 1, mediaFiles.size)
 
         binding.mediaSelectorCheckText.text =
-            getString(R.string.media_selector_select_button, selectedCount, maxSelectCount)
+            getString(
+                R.string.media_selector_select_button,
+                MediaSelectorResult.getSelectedCount(),
+                MediaSelectorResult.getMaxCount()
+            )
 
         val adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int {
@@ -54,6 +54,7 @@ class MediaSelectorPreviewActivity : AppCompatActivity() {
                     MediaFile.MediaType.IMAGE -> {
                         MediaImagePreviewFragment.getInstance(mediaFiles[position])
                     }
+
                     MediaFile.MediaType.VIDEO -> {
                         MediaVideoPreviewFragment.getInstance(mediaFiles[position])
                     }
@@ -72,20 +73,31 @@ class MediaSelectorPreviewActivity : AppCompatActivity() {
                         mediaFiles.size
                     )
                 binding.mediaSelectorCheckBox.isSelected = mediaFiles[position].checked
+                binding.mediaSelectorPreviewCheckbox.setOnClickListener {
+                    mediaFiles[position].checked = !mediaFiles[position].checked
+
+                    // if changed to checked
+                    if (mediaFiles[position].checked) {
+                        MediaSelectorResult.addMediaFile(mediaFiles[position])
+                        binding.mediaSelectorCheckBox.isSelected = true
+                    } else {
+                        MediaSelectorResult.removeMediaFile(mediaFiles[position])
+                        binding.mediaSelectorCheckBox.isSelected = false
+                    }
+
+                    binding.mediaSelectorCheckText.text =
+                        getString(
+                            R.string.media_selector_select_button,
+                            MediaSelectorResult.getSelectedCount(),
+                            MediaSelectorResult.getMaxCount()
+                        )
+                }
             }
         })
 
         binding.mediaSelectorViewPager.offscreenPageLimit = 3
         binding.mediaSelectorViewPager.adapter = adapter
         binding.mediaSelectorViewPager.setCurrentItem(position, false)
-
-        binding.mediaSelectorCheckBox.isSelected = mediaFiles[position].checked
-        binding.mediaSelectorPreviewCheckbox.setOnClickListener {
-            mediaFiles[position].checked = !mediaFiles[position].checked
-            binding.mediaSelectorCheckText.text =
-                getString(R.string.media_selector_select_button, selectedCount, maxSelectCount)
-            binding.mediaSelectorCheckBox.isSelected = mediaFiles[position].checked
-        }
     }
 
     override fun finish() {
