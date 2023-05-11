@@ -1,6 +1,5 @@
 # MediaSelector
-android image、video selector
-easy to use \ simple design
+android image、video selector , easy to use \ simple design
 
 # ScreenShot
 ### List Page  /  Preview Page
