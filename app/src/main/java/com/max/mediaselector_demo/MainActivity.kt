@@ -18,9 +18,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.max.mediaselector.MediaFile
 import com.max.mediaselector.MediaSelectorListActivity
+import com.max.mediaselector.MediaSelectorExtras
 import com.max.mediaselector_demo.databinding.ActivityMainBinding
 import com.max.mediaselector_demo.databinding.ItemSelectedResultBinding
-import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 )
             ) {
                 val intent = Intent(this, MediaSelectorListActivity::class.java)
-                intent.putExtra("max_select_count",22)
+                intent.putExtra(MediaSelectorExtras.MAX_SELECT_COUNT, 22)
                 openSelectorLauncher.launch(intent)
             } else {
                 permissionRequestLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             val mediaFiles =
-                result.data?.getParcelableArrayListExtra<MediaFile>(MediaSelectorListActivity.SELECTED_MEDIA_FILES)
+                result.data?.getParcelableArrayListExtra<MediaFile>(MediaSelectorExtras.SELECTED_MEDIA_FILES)
             Toast.makeText(this, mediaFiles?.size.toString(), Toast.LENGTH_LONG).show()
             adapter.setMediaFiles(mediaFiles)
         }

@@ -11,11 +11,6 @@ import com.max.mediaselector.view.MediaSelectorRecyclerView
 
 class MediaSelectorListActivity : AppCompatActivity() {
 
-    companion object {
-        const val SELECTED_MEDIA_FILES = "selected_media_files"
-        const val MAX_SELECT_COUNT = "max_select_count"
-    }
-
     private val binding: MediaSelectorActivityMediaListBinding by lazy {
         MediaSelectorActivityMediaListBinding.inflate(layoutInflater)
     }
@@ -53,7 +48,7 @@ class MediaSelectorListActivity : AppCompatActivity() {
             finish()
         }
 
-        MediaSelectorResult.init(intent.getIntExtra(MAX_SELECT_COUNT, 9))
+        MediaSelectorResult.init(intent.getIntExtra(MediaSelectorExtras.MAX_SELECT_COUNT, 9))
 
         binding.mediaSelectorRecyclerView.init(
             enableImage = true,
@@ -98,7 +93,7 @@ class MediaSelectorListActivity : AppCompatActivity() {
         binding.mediaSelectorSelectConfirmButton.setOnClickListener {
             val outIntent = Intent()
             outIntent.putExtra(
-                SELECTED_MEDIA_FILES,
+                MediaSelectorExtras.SELECTED_MEDIA_FILES,
                 MediaSelectorResult.getResult()
             )
             setResult(RESULT_OK, outIntent)
