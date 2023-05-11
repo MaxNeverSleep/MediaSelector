@@ -3,11 +3,10 @@ android image、video selector
 easy to use \ simple design
 
 # ScreenShot
-### Image/Video List Page
-<div><img src="https://github.com/Maxyjy/MediaSelector/assets/51241804/ee86334d-cd11-46f9-8bf5-0f29bc1bfe98" width = "300" align=center /></div>
-
-### Image/Video Preview Page
-<div><img src="https://github.com/Maxyjy/MediaSelector/assets/51241804/882a992b-6341-4c7b-9217-497d5973b30b" width = "300" align=center /></div>
+### List Page  /  Preview Page
+<img src="https://github.com/Maxyjy/MediaSelector/assets/51241804/ee86334d-cd11-46f9-8bf5-0f29bc1bfe98" width = "300" align=center />
+   
+<img src="https://github.com/Maxyjy/MediaSelector/assets/51241804/882a992b-6341-4c7b-9217-497d5973b30b" width = "300" align=center />
 
 # How To Use
 ### 1.implementation
