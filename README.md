@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-  implementation 'com.github.Maxyjy:MediaSelector:1.0.1'
+  implementation 'com.github.Maxyjy:MediaSelector:1.0.5'
 }
 ```
 
