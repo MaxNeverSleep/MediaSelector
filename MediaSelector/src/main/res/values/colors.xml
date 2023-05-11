@@ -2,7 +2,7 @@
 <resources>
     <color name="media_selector_checkbox_color">#2196F3</color>
     <color name="media_selector_toolbar_background_color">#fff</color>
-    <color name="media_selector_toolbar_text_color">#000</color>
+    <color name="media_selector_text_color">#000</color>
     <color name="media_selector_content_background_color">#fff</color>
     <color name="media_selector_mask_color">#32000000</color>
 </resources>

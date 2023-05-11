@@ -19,7 +19,7 @@
             android:background="@color/media_selector_toolbar_background_color"
             app:layout_constraintTop_toTopOf="parent"
             app:title=" "
-            app:titleTextColor="@color/media_selector_toolbar_text_color" />
+            app:titleTextColor="@color/media_selector_text_color" />
 
         <TextView
             android:id="@+id/media_selector_select_confirm_button"
@@ -36,7 +36,7 @@
             android:gravity="center"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:textColor="@color/media_selector_toolbar_text_color"
+            android:textColor="@color/media_selector_text_color"
             android:textSize="14sp"
             android:textStyle="bold"
             tools:text="@string/media_selector_confirm_button_pattern" />

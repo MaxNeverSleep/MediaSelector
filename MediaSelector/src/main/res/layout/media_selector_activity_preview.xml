@@ -20,7 +20,7 @@
             android:background="@color/media_selector_toolbar_background_color"
             app:layout_constraintTop_toTopOf="parent"
             app:title=" "
-            app:titleTextColor="@color/media_selector_toolbar_text_color" />
+            app:titleTextColor="@color/media_selector_text_color" />
 
         <TextView
             android:id="@+id/media_selector_indicator"
@@ -54,7 +54,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="3dp"
                 android:text="@string/media_selector_select_button"
-                android:textColor="@color/media_selector_toolbar_text_color"
+                android:textColor="@color/media_selector_text_color"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
