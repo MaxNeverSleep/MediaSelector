@@ -32,6 +32,9 @@ class MediaSelectorPreviewActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.mediaSelectorToolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.mediaSelectorToolBar.setNavigationOnClickListener {
+            finish()
+        }
 
         // position/total count
         binding.mediaSelectorToolBar.title =
@@ -74,15 +77,16 @@ class MediaSelectorPreviewActivity : AppCompatActivity() {
                     )
                 binding.mediaSelectorCheckBox.isSelected = mediaFiles[position].checked
                 binding.mediaSelectorPreviewCheckbox.setOnClickListener {
-                    mediaFiles[position].checked = !mediaFiles[position].checked
-
                     // if changed to checked
-                    if (mediaFiles[position].checked) {
-                        MediaSelectorResult.addMediaFile(mediaFiles[position])
-                        binding.mediaSelectorCheckBox.isSelected = true
+                    if (!mediaFiles[position].checked) {
+                        if (MediaSelectorResult.addMediaFile(mediaFiles[position])) {
+                            binding.mediaSelectorCheckBox.isSelected = true
+                            mediaFiles[position].checked = true
+                        }
                     } else {
                         MediaSelectorResult.removeMediaFile(mediaFiles[position])
                         binding.mediaSelectorCheckBox.isSelected = false
+                        mediaFiles[position].checked = false
                     }
 
                     binding.mediaSelectorCheckText.text =

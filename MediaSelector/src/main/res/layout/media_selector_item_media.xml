@@ -44,6 +44,7 @@
         android:layout_height="26dp"
         android:layout_alignEnd="@id/media_selector_iv_cover"
         android:layout_alignBottom="@id/media_selector_iv_cover"
+        android:focusable="false"
         android:padding="2dp"
         android:src="@drawable/media_selector_check_box_selector" />
 

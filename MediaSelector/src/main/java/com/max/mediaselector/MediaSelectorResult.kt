@@ -61,7 +61,7 @@ object MediaSelectorResult {
         return result
     }
 
-    private fun isReachMaxCount(): Boolean {
+    fun isReachMaxCount(): Boolean {
         return getSelectedCount() >= maxSelectCount
     }
 

@@ -45,7 +45,6 @@ class MediaSelectorRecyclerView : RecyclerView {
         loadMediaFiles(enableImage, enableVideo) { mediaFiles ->
             mediaSelectorAdapter.updateMediaData(
                 enableSelect,
-                MediaSelectorResult.getMaxCount(),
                 mediaFiles
             )
             addItemSpacing()

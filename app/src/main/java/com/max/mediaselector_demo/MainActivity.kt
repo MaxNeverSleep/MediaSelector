@@ -46,7 +46,9 @@ class MainActivity : AppCompatActivity() {
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 )
             ) {
-                openSelectorLauncher.launch(Intent(this, MediaSelectorListActivity::class.java))
+                val intent = Intent(this, MediaSelectorListActivity::class.java)
+                intent.putExtra("max_select_count",22)
+                openSelectorLauncher.launch(intent)
             } else {
                 permissionRequestLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             }

@@ -2,6 +2,7 @@ package com.max.mediaselector.adapter
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.provider.MediaStore.Audio.Media
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.max.mediaselector.MediaFile
+import com.max.mediaselector.MediaSelectorResult
 import com.max.mediaselector.R
 import com.max.mediaselector.view.MediaSelectorRecyclerView
 import java.util.*
@@ -30,8 +32,6 @@ class MediaSelectorAdapter(private val context: Context) :
     private var mediaFiles: List<MediaFile>? = null
 
     private var enableSelect: Boolean = false
-    private var maxSelectCount: Int = 0
-    private var selectedMediaFiles = ArrayList<MediaFile>()
 
     private var onSelectMediaFileListener:
             MediaSelectorRecyclerView.OnSelectMediaFileListener? = null
@@ -47,7 +47,6 @@ class MediaSelectorAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: MediaSelectorViewHolder, position: Int) {
         mediaFiles?.get(position)?.let { mediaFile ->
-
 
             //Video Duration (if it's video)
             if (mediaFile.mediaType == MediaFile.MediaType.VIDEO) {
@@ -75,7 +74,7 @@ class MediaSelectorAdapter(private val context: Context) :
             }
 
             //CheckBox (if select function is enable)
-            if (enableSelect && maxSelectCount > 0) {
+            if (enableSelect) {
                 //checkbox
                 holder.ivCheckBox.isSelected = mediaFile.checked
 
@@ -88,34 +87,32 @@ class MediaSelectorAdapter(private val context: Context) :
 
                 //expand click area
                 holder.vCheckBoxClickArea.setOnClickListener {
-                    holder.ivCheckBox.performClick()
-                }
-
-                holder.ivCheckBox.setOnClickListener {
-                    val selected = holder.ivCheckBox.isSelected
-                    //if reach the max count ,return
-                    if (!selected && (selectedMediaFiles.size >= maxSelectCount)) {
-                        return@setOnClickListener
-                    }
-
-                    holder.ivCheckBox.isSelected = !selected
-                    mediaFile.checked = holder.ivCheckBox.isSelected
-
-                    //translucence mask
-                    fadeInOrOut(holder.ivCheckBox.isSelected, holder.vMask)
+                    // new state
+                    val newSelectState = !holder.ivCheckBox.isSelected
 
                     //selected - > add file to list
-                    if (holder.ivCheckBox.isSelected) {
-                        selectedMediaFiles.add(mediaFile)
-                        onSelectMediaFileListener?.onSelect(mediaFile)
+                    if (newSelectState) {
+                        //if reach the max count ,do nothing
+                        if (MediaSelectorResult.addMediaFile(mediaFile)) {
+                            mediaFile.checked = true
+
+                            holder.ivCheckBox.isSelected = true
+                            //translucence mask
+                            fadeInOrOut(true, holder.vMask)
+
+                            onSelectMediaFileListener?.onSelect(mediaFile)
+                        }
                     } else {
                         //unselected - > remove file from list
-                        if (selectedMediaFiles.contains(mediaFile)) {
-                            selectedMediaFiles.remove(mediaFile)
-                        }
+                        MediaSelectorResult.removeMediaFile(mediaFile)
+                        mediaFile.checked = false
+
+                        holder.ivCheckBox.isSelected = false
+                        //translucence mask
+                        fadeInOrOut(false, holder.vMask)
+
                         onSelectMediaFileListener?.onUnSelect(mediaFile)
                     }
-
                 }
             }
         }
@@ -127,11 +124,9 @@ class MediaSelectorAdapter(private val context: Context) :
 
     fun updateMediaData(
         enableSelect: Boolean,
-        maxSelectCount: Int,
         mediaFiles: ArrayList<MediaFile>
     ) {
         this.enableSelect = enableSelect
-        this.maxSelectCount = maxSelectCount
         this.mediaFiles = mediaFiles
         notifyItemChanged(0, mediaFiles.size)
     }
@@ -142,10 +137,6 @@ class MediaSelectorAdapter(private val context: Context) :
 
     fun setOnMediaItemClickListener(listener: MediaSelectorRecyclerView.OnMediaItemClickListener) {
         this.onClickMediaItemListener = listener
-    }
-
-    fun getSelectedMediaFiles(): ArrayList<MediaFile> {
-        return selectedMediaFiles
     }
 
     private fun formatDuration(duration: Long): String {
@@ -173,11 +164,6 @@ class MediaSelectorAdapter(private val context: Context) :
             view.visibility = View.GONE
         }
     }
-
-    fun selectMediaFile(mediaFile: MediaFile) {
-        notifyItemChanged(this.mediaFiles?.indexOf(mediaFile)!!)
-    }
-
 
     class MediaSelectorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivCover: ImageView = itemView.findViewById(R.id.media_selector_iv_cover)

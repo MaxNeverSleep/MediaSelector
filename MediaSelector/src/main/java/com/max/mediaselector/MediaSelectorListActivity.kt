@@ -13,13 +13,12 @@ class MediaSelectorListActivity : AppCompatActivity() {
 
     companion object {
         const val SELECTED_MEDIA_FILES = "selected_media_files"
+        const val MAX_SELECT_COUNT = "max_select_count"
     }
 
     private val binding: MediaSelectorActivityMediaListBinding by lazy {
         MediaSelectorActivityMediaListBinding.inflate(layoutInflater)
     }
-
-    private var maxSelectCount = 9
 
     override fun onResume() {
         super.onResume()
@@ -50,9 +49,11 @@ class MediaSelectorListActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.mediaSelectorToolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.mediaSelectorToolBar.setNavigationOnClickListener {
+            finish()
+        }
 
-        maxSelectCount = intent.getIntExtra("max_select_count", 9)
-        MediaSelectorResult.init(maxSelectCount)
+        MediaSelectorResult.init(intent.getIntExtra("max_select_count", 9))
 
         binding.mediaSelectorRecyclerView.init(
             enableImage = true,
@@ -60,12 +61,12 @@ class MediaSelectorListActivity : AppCompatActivity() {
             enableSelect = true,
         )
 
-        refreshSelectedCountText(0, maxSelectCount)
+        refreshSelectedCountText(0, MediaSelectorResult.getMaxCount())
+
         binding.mediaSelectorRecyclerView.setOnSelectCountChangedListener(object :
             MediaSelectorRecyclerView.OnSelectMediaFileListener {
 
             override fun onSelect(mediaFile: MediaFile) {
-                MediaSelectorResult.addMediaFile(mediaFile)
                 refreshSelectedCountText(
                     MediaSelectorResult.getSelectedCount(),
                     MediaSelectorResult.getMaxCount()
@@ -73,7 +74,6 @@ class MediaSelectorListActivity : AppCompatActivity() {
             }
 
             override fun onUnSelect(mediaFile: MediaFile) {
-                MediaSelectorResult.removeMediaFile(mediaFile)
                 refreshSelectedCountText(
                     MediaSelectorResult.getSelectedCount(),
                     MediaSelectorResult.getMaxCount()
