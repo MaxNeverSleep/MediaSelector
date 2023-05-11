@@ -53,7 +53,7 @@ class MediaSelectorListActivity : AppCompatActivity() {
             finish()
         }
 
-        MediaSelectorResult.init(intent.getIntExtra("max_select_count", 9))
+        MediaSelectorResult.init(intent.getIntExtra(MAX_SELECT_COUNT, 9))
 
         binding.mediaSelectorRecyclerView.init(
             enableImage = true,
