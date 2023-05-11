@@ -24,7 +24,9 @@ dependencies {
 start `MediaSelectorListActivity` in your own activity
 ```kotlin
 selectImageButton.setOnClickListener {
-   startActivityForResult(Intent(this, MediaSelectorListActivity::class.java), REQUEST_CODE)
+   val intent = Intent(this, MediaSelectorListActivity::class.java)
+   intent.putExtra(MediaSelectorExtras.MAX_SELECT_COUNT,YOUR_SELECT_COUNT)
+   startActivityForResult(Intent(this, MediaSelectorListActivity::class.java), YOUR_REQUEST_CODE)
 }
 ```
 
@@ -34,8 +36,8 @@ override `onActivityResult` function in your Activity or Fragment to receive the
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         //get the result of the selection
-        if(requestCode == REQUEST_CODE) {
-          val mediaFiles = data?.getParcelableArrayListExtra<MediaFile>(MediaSelectorListActivity.SELECTED_MEDIA_FILES)
+        if(requestCode == YOUR_REQUEST_CODE) {
+          val mediaFiles = data?.getParcelableArrayListExtra<MediaFile>(MediaSelectorExtras.SELECTED_MEDIA_FILES)
         }
     }
 ```
