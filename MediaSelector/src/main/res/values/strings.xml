@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="media_selector_single_confirm_button">Confirm</string>
+    <string name="media_selector_single_select_button">Select</string>
     <string name="media_selector_confirm_button_pattern">Confirm (%1$d/%2$d)</string>
     <string name="media_selector_confirm_indicator">%1$d/%2$d</string>
     <string name="media_selector_select_button">Select (%1$d/%2$d)</string>

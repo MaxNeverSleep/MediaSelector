@@ -40,12 +40,19 @@ class MediaSelectorPreviewActivity : AppCompatActivity() {
         binding.mediaSelectorToolBar.title =
             getString(R.string.media_selector_confirm_indicator, position + 1, mediaFiles.size)
 
-        binding.mediaSelectorCheckText.text =
-            getString(
-                R.string.media_selector_select_button,
-                MediaSelectorResult.getSelectedCount(),
-                MediaSelectorResult.getMaxCount()
-            )
+        if (MediaSelectorResult.getMaxCount() == 1) {
+            binding.mediaSelectorCheckText.text =
+                getString(
+                    R.string.media_selector_single_select_button,
+                )
+        } else {
+            binding.mediaSelectorCheckText.text =
+                getString(
+                    R.string.media_selector_select_button,
+                    MediaSelectorResult.getSelectedCount(),
+                    MediaSelectorResult.getMaxCount()
+                )
+        }
 
         val adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int {
@@ -88,13 +95,19 @@ class MediaSelectorPreviewActivity : AppCompatActivity() {
                         binding.mediaSelectorCheckBox.isSelected = false
                         mediaFiles[position].checked = false
                     }
-
-                    binding.mediaSelectorCheckText.text =
-                        getString(
-                            R.string.media_selector_select_button,
-                            MediaSelectorResult.getSelectedCount(),
-                            MediaSelectorResult.getMaxCount()
-                        )
+                    if (MediaSelectorResult.getMaxCount() == 1) {
+                        binding.mediaSelectorCheckText.text =
+                            getString(
+                                R.string.media_selector_single_select_button,
+                            )
+                    } else {
+                        binding.mediaSelectorCheckText.text =
+                            getString(
+                                R.string.media_selector_select_button,
+                                MediaSelectorResult.getSelectedCount(),
+                                MediaSelectorResult.getMaxCount()
+                            )
+                    }
                 }
             }
         })

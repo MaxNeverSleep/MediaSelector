@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.max.mediaselector.databinding.MediaSelectorActivityMediaListBinding
 import com.max.mediaselector.view.MediaSelectorRecyclerView
+import kotlin.math.max
 
 class MediaSelectorListActivity : AppCompatActivity() {
 
@@ -104,12 +105,19 @@ class MediaSelectorListActivity : AppCompatActivity() {
     }
 
     private fun refreshSelectedCountText(currentSelectCount: Int, maxSelectCount: Int) {
-        binding.mediaSelectorSelectConfirmButton.text =
-            getString(
-                R.string.media_selector_confirm_button_pattern,
-                currentSelectCount,
-                maxSelectCount
-            )
+        if (maxSelectCount == 1) {
+            binding.mediaSelectorSelectConfirmButton.text =
+                getString(
+                    R.string.media_selector_single_confirm_button
+                )
+        } else {
+            binding.mediaSelectorSelectConfirmButton.text =
+                getString(
+                    R.string.media_selector_confirm_button_pattern,
+                    currentSelectCount,
+                    maxSelectCount
+                )
+        }
     }
 
 

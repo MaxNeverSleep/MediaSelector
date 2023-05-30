@@ -5,7 +5,7 @@ import kotlin.math.max
 
 object MediaSelectorResult {
 
-    private var maxSelectCount: Int = 1;
+    private var maxSelectCount: Int = 1
     private val selectedMediaFile = ArrayList<MediaFile>()
     private val selectedMediaMap = HashMap<Long, MediaFile>()
 
