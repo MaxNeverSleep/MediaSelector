@@ -48,12 +48,12 @@ class MediaSelectorListActivity : AppCompatActivity() {
             finish()
         }
 
-        MediaSelectorResult.init(intent.getIntExtra(MediaSelectorExtras.MAX_SELECT_COUNT, 9))
+        MediaSelectorResult.init(intent.getIntExtra(MediaSelectorExtras.MAX_SELECT_COUNT, 1))
 
         binding.mediaSelectorRecyclerView.init(
-            enableImage = true,
-            enableVideo = true,
-            enableSelect = true,
+            enableImage = intent.getBooleanExtra(MediaSelectorExtras.IMAGE_ENABLE, true),
+            enableVideo = intent.getBooleanExtra(MediaSelectorExtras.VIDEO_ENABLE, true),
+            enableSelect = intent.getBooleanExtra(MediaSelectorExtras.SELECT_ENABLE, true),
         )
 
         refreshSelectedCountText(0, MediaSelectorResult.getMaxCount())

@@ -38,7 +38,6 @@
             android:paddingEnd="15dp"
             android:textColor="@color/media_selector_text_color"
             android:textSize="14sp"
-            android:textStyle="bold"
             tools:text="@string/media_selector_confirm_button_pattern" />
 
     </RelativeLayout>
