@@ -50,6 +50,7 @@
             <TextView
                 android:id="@+id/media_selector_check_text"
                 android:layout_width="wrap_content"
+                android:textStyle="bold"
                 android:gravity="center_vertical"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="3dp"

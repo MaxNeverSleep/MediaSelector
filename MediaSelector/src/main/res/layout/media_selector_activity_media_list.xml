@@ -25,6 +25,7 @@
             android:id="@+id/media_selector_select_confirm_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:layout_alignTop="@id/media_selector_tool_bar"
             android:layout_alignBottom="@id/media_selector_tool_bar"
             android:layout_alignParentEnd="true"
