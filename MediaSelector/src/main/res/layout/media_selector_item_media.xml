@@ -29,14 +29,16 @@
         android:layout_alignTop="@id/media_selector_check_box"
         android:layout_alignEnd="@id/media_selector_iv_cover"
         android:layout_alignBottom="@id/media_selector_iv_cover"
-        android:background="@drawable/media_selector_gradient_view" />
+        android:background="@drawable/media_selector_gradient_view"
+        android:visibility="gone" />
 
     <View
         android:id="@+id/media_selector_check_box_click_area"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignEnd="@id/media_selector_iv_cover"
-        android:layout_alignBottom="@id/media_selector_iv_cover" />
+        android:layout_alignBottom="@id/media_selector_iv_cover"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/media_selector_check_box"
@@ -46,7 +48,8 @@
         android:layout_alignBottom="@id/media_selector_iv_cover"
         android:focusable="false"
         android:padding="2dp"
-        android:src="@drawable/media_selector_check_box_selector" />
+        android:src="@drawable/media_selector_check_box_selector"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/media_selector_rl_video_flag"

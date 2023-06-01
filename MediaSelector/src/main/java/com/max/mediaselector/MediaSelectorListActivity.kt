@@ -3,6 +3,7 @@ package com.max.mediaselector
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -35,13 +36,6 @@ class MediaSelectorListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) !=
-            PackageManager.PERMISSION_GRANTED
-        ) {
-            finish()
-            SecurityException("media selector need read external storage permission").printStackTrace()
-        }
 
         setSupportActionBar(binding.mediaSelectorToolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -80,14 +74,15 @@ class MediaSelectorListActivity : AppCompatActivity() {
         binding.mediaSelectorRecyclerView.setOnMediaItemClickListener(object :
             MediaSelectorRecyclerView.OnMediaItemClickListener {
             override fun onMediaItemClick(position: Int, mediaFile: MediaFile) {
-                val intent =
-                    Intent(this@MediaSelectorListActivity, MediaSelectorPreviewActivity::class.java)
-                intent.putExtra("position", position)
-                startActivity(intent)
-                overridePendingTransition(
-                    R.anim.media_selector_fragment_start_enter_anim,
-                    R.anim.media_selector_fragment_start_exit_anim
+                MediaSelectorResult.addMediaFile(mediaFile)
+                val outIntent = Intent()
+                outIntent.putExtra(
+                    MediaSelectorExtras.SELECTED_MEDIA_FILES,
+                    MediaSelectorResult.getResult()
                 )
+                setResult(RESULT_OK, outIntent)
+                MediaSelectorResult.clear()
+                finish()
             }
         })
 
