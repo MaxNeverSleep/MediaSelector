@@ -6,7 +6,6 @@ import android.os.Parcelable
 class MediaFile(
     val mediaType: MediaType,
     val id: Long,
-    val name: String,
     val path: String,
     val size: Long,
     val timeStamp: Long,
@@ -18,7 +17,6 @@ class MediaFile(
     constructor(parcel: Parcel) : this(
         MediaType.valueOf(parcel.readString() ?: MediaType.IMAGE.name),
         parcel.readLong(),
-        parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readLong(),
         parcel.readLong(),
@@ -38,7 +36,6 @@ class MediaFile(
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeString(this.mediaType.name)
         dest?.writeLong(this.id)
-        dest?.writeString(this.name)
         dest?.writeString(this.path)
         dest?.writeLong(this.size)
         dest?.writeLong(this.timeStamp)
@@ -60,7 +57,6 @@ class MediaFile(
         return MediaFile(
             mediaType,
             id,
-            name,
             path,
             size,
             timeStamp,

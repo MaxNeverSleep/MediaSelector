@@ -138,7 +138,6 @@ class MediaSelectorRecyclerView : RecyclerView {
             Handler(Looper.getMainLooper()).post {
                 callback.invoke(mediaFiles)
             }
-
         }
     }
 
