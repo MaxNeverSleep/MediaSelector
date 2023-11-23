@@ -1,5 +1,5 @@
 # MediaSelector 照片选择器、视频选择器
-android image、video selector, easy to use, simple design <br>
+Android image、video selector, easy to use, simple design <br>
 Android 照片、视频选择器，简洁易用 <br>
 
 # ScreenShot 样式
