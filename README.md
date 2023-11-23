@@ -1,6 +1,6 @@
 # MediaSelector 照片选择器、视频选择器
-Android image、video selector, easy to use, simple design <br>
-Android 照片、视频选择器，简洁易用 <br>
+Android image、video selector, simple design easy to use, customize the number of selections <br>
+Android 照片、视频选择器，简洁易用，可自定义选择的数量、自定义只选择照片或只选择视频，修改选择页面样式。<br>
 
 # ScreenShot 样式
 ### List Page / Preview Page
@@ -23,11 +23,18 @@ dependencies {
 
 ### 2.open selector activity / 打开选择器 Activity
 start `MediaSelectorListActivity` in your own activity<br>
-从 Activity 或 Fragment 中打开选择器 Activity
+从 Activity 或 Fragment 中打开选择器 Activity，传入选择的最大数量。
 ```kotlin
 selectImageButton.setOnClickListener {
    val intent = Intent(this, MediaSelectorListActivity::class.java)
-   intent.putExtra(MediaSelectorExtras.MAX_SELECT_COUNT,YOUR_SELECT_COUNT)
+   // count of photo or video
+   intent.putExtra(MediaSelectorExtras.MAX_SELECT_COUNT, YOUR_SELECT_COUNT)
+   // default is true, set false if you want to disable photo select
+   intent.putExtra(MediaSelectorExtras.IMAGE_ENABLE, true)
+   // default is true, set false if you want to disable video select 
+   intent.putExtra(MediaSelectorExtras.VIDEO_ENABLE, true)
+   // default is true, set false if you want to disable select function
+   intent.putExtra(MediaSelectorExtras.SELECT_ENABLE, true)
    startActivityForResult(Intent(this, MediaSelectorListActivity::class.java), YOUR_REQUEST_CODE)
 }
 ```
