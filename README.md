@@ -1,6 +1,6 @@
 # MediaSelector 照片选择器、视频选择器
-android image、video selector , easy to use \ simple design \n
-Android 照片、视频选择器，简洁易用
+android image、video selector, easy to use, simple design <br>
+Android 照片、视频选择器，简洁易用 <br>
 
 # ScreenShot 样式
 ### List Page / Preview Page
@@ -22,8 +22,8 @@ dependencies {
 ```
 
 ### 2.open selector activity / 打开选择器 Activity
-start `MediaSelectorListActivity` in your own activity
-从Activity或Fragment中打开选择器Activity
+start `MediaSelectorListActivity` in your own activity<br>
+从 Activity 或 Fragment 中打开选择器 Activity
 ```kotlin
 selectImageButton.setOnClickListener {
    val intent = Intent(this, MediaSelectorListActivity::class.java)
@@ -33,8 +33,8 @@ selectImageButton.setOnClickListener {
 ```
 
 ### 3.receive result / 接收选择照片或视频结果
-override `onActivityResult` function in your Activity or Fragment to receive the result.
-在Activity中onActivityResult方法接收选择结果
+override `onActivityResult` function in your Activity or Fragment to receive the result.<br>
+在 Activity 中 onActivityResult() 方法接收选择结果
 ```kotlin
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
@@ -46,7 +46,7 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
 
 ```
 ### 4.override color of Selector Pages (Optional) / 按你的项目需求设置页面颜色
-define color in your own module to override selector page's color
+define color in your own module to override selector page's color<br>
 声明同名Color资源来覆盖原有页面的颜色
 ```xml
     // checkbox color
