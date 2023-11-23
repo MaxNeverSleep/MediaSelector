@@ -1,15 +1,16 @@
-# MediaSelector / 照片选择器、视频选择器
-android image、video selector , easy to use \ simple design
+# MediaSelector 照片选择器、视频选择器
+android image、video selector , easy to use \ simple design \n
 Android 照片、视频选择器，简洁易用
 
-# ScreenShot / 样式
-### List Page  照片列表页面 /  Preview Page 照片预览页面
+# ScreenShot 样式
+### List Page / Preview Page
+### 照片列表页面 / 照片预览页面
 <img src="https://github.com/Maxyjy/MediaSelector/assets/51241804/ee86334d-cd11-46f9-8bf5-0f29bc1bfe98" width = "300" align=center />
    
 <img src="https://github.com/Maxyjy/MediaSelector/assets/51241804/882a992b-6341-4c7b-9217-497d5973b30b" width = "300" align=center />
 
-# How To Use / 如何使用
-### 1.implementation
+# How To Use 如何使用
+### 1.implementation 依赖添加
 ```gradle
 repositories {
   maven { url 'https://jitpack.io' }
@@ -20,7 +21,7 @@ dependencies {
 }
 ```
 
-### 2.open selector activity / 打开选择器Activity
+### 2.open selector activity / 打开选择器 Activity
 start `MediaSelectorListActivity` in your own activity
 从Activity或Fragment中打开选择器Activity
 ```kotlin
